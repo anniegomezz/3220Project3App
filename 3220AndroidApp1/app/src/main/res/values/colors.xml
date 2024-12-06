@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="splat_purple">#6c48f6</color>
+    <color name="light_splat_purple">#aa93ec</color>
+    <color name="splat_yellow">#f8f546</color>
+    <color name="splat_salmon">#ff515e</color>
 </resources>
