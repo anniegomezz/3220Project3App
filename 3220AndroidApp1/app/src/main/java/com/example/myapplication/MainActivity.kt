@@ -5,69 +5,90 @@ import androidx.activity.ComponentActivity
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import android.view.animation.AlphaAnimation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity_view)
 
-        // Find buttons and the image container
+        //Toolbar to show page title
+//        val toolbar: Toolbar = findViewById(R.id.topBar)
+//        setSupportActionBar(toolbar)
+
+        // Define buttons
         val button1: Button = findViewById(R.id.button1)
         val button2: Button = findViewById(R.id.button2)
         val button3: Button = findViewById(R.id.button3)
         val imageContainer: FrameLayout = findViewById(R.id.imageContainer)
 
-        // Set onClick listeners for each button
-        button1.setOnClickListener {
-            val imageView = ImageView(this)
-            imageView.setImageResource(R.drawable.image1) // Replace with your actual image resource
-            imageContainer.removeAllViews() // Clear previous content
-            imageContainer.addView(imageView) // Add the new image
-        }
+        //onClick listeners for each button
 
-        button2.setOnClickListener {
-            val imageView = ImageView(this)
-            imageView.setImageResource(R.drawable.image2) // Replace with your actual image resource
-            imageContainer.removeAllViews()
-            imageContainer.addView(imageView)
-        }
-
-        button3.setOnClickListener {
-            val imageView = ImageView(this)
-            imageView.setImageResource(R.drawable.image3) // Replace with your actual image resource
-            imageContainer.removeAllViews()
-            imageContainer.addView(imageView)
-        }
-
-
-
-//        setContent {
-//            MyApplicationTheme {
-//                // A surface container using the 'background' color from the theme
-//                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-//                    Greeting("Android App")
-//                }
-//            }
+//        //roller
+//        button1.setOnClickListener {
+//            val imageView = ImageView(this)
+//            imageView.setImageResource(R.drawable.image1)
+//            imageContainer.removeAllViews()
+//            imageContainer.addView(imageView)
 //        }
+//        //splatling
+//        button2.setOnClickListener {
+//            val imageView = ImageView(this)
+//            imageView.setImageResource(R.drawable.image2)
+//            imageContainer.removeAllViews()
+//            imageContainer.addView(imageView)
+//        }
+//        //charger
+//        button3.setOnClickListener {
+//            val imageView = ImageView(this)
+//            imageView.setImageResource(R.drawable.image3)
+//            imageContainer.removeAllViews()
+//            imageContainer.addView(imageView)
+//        }
+        //roller (roller paintbrush weapon)
+        button1.setOnClickListener {
+            switchImage(imageContainer, R.drawable.image1) // Image 1
+        }
+        //splatling (gatling gun/machine gun)
+        button2.setOnClickListener {
+            switchImage(imageContainer, R.drawable.image2) // Image 2
+        }
+        //charger (sniper gun)
+        button3.setOnClickListener {
+            switchImage(imageContainer, R.drawable.image3) // Image 3
+        }
 
 
 
     }
+
+    private fun switchImage(container: FrameLayout, imageResId: Int) {
+        // Create a new ImageView for the new image
+        val newImageView = ImageView(this)
+        newImageView.setImageResource(imageResId)
+
+        // Add fade-out animation to the existing image
+        val fadeOut = AlphaAnimation(1.0f, 0.0f)
+        fadeOut.duration = 300 // 300ms fade out duration
+
+        // Add fade-in animation to the new image
+        val fadeIn = AlphaAnimation(0.0f, 1.0f)
+        fadeIn.duration = 300 // 300ms fade in duration
+
+        // Remove all previous views
+        container.removeAllViews()
+
+        // Start fade-out animation
+        val currentImageView = container.getChildAt(0) as? ImageView
+        currentImageView?.startAnimation(fadeOut)
+
+        // Add the new image to the container and start fade-in animation
+        container.addView(newImageView)
+        newImageView.startAnimation(fadeIn)
+    }
+
+
 }
 
-//@Composable
-//fun Greeting(name: String, modifier: Modifier = Modifier) {
-//    Text(
-//            text = "Hello $name!",
-//            modifier = modifier
-//    )
-//}
-//
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    MyApplicationTheme {
-//        Greeting("Android")
-//    }
-//}
